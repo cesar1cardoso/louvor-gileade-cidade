@@ -83,7 +83,7 @@ function renderCifraLinha(line, steps, fs) {
       {pairs.map((p, i) => (
         <span key={i} style={{ display: 'inline-flex', flexDirection: 'column' }}>
           {hasc && (
-            <span style={{ fontSize: fs * 0.7, fontWeight: 800, color: '#f0b429', lineHeight: 1.3, fontFamily: 'monospace', minWidth: '0.4ch' }}>
+            <span style={{ fontSize: fs * 0.7, fontWeight: 800, color: 'var(--gold)', lineHeight: 1.3, fontFamily: 'monospace', minWidth: '0.4ch' }}>
               {p.c || '\u00A0'}
             </span>
           )}
@@ -136,7 +136,7 @@ function renderCifraContent(cifraTexto, steps, fs) {
       if (next?.trim() && !isChordOnlyLine(next) && !/^Tom\s*[:\-]?\s*[A-G]/i.test(next)) {
         result.push(
           <div key={i} style={{ marginBottom: 4, maxWidth: '100%', boxSizing: 'border-box' }}>
-            <div style={{ fontSize: fs * 0.82, fontWeight: 700, color: '#f0b429', fontFamily: 'monospace', lineHeight: 1.4, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+            <div style={{ fontSize: fs * 0.82, fontWeight: 700, color: 'var(--gold)', fontFamily: 'monospace', lineHeight: 1.4, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
               {transposeChordLine(line, steps)}
             </div>
             <div style={{ fontSize: fs, color: 'rgba(255,255,255,0.85)', fontFamily: "'Crimson Pro', Georgia, serif", lineHeight: 1.9, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
@@ -147,7 +147,7 @@ function renderCifraContent(cifraTexto, steps, fs) {
         i += 2; continue;
       }
       result.push(
-        <div key={i} style={{ fontSize: fs * 0.82, fontWeight: 700, color: '#f0b429', fontFamily: 'monospace', lineHeight: 1.8, marginBottom: 2, whiteSpace: 'pre-wrap', wordBreak: 'break-all', maxWidth: '100%' }}>
+        <div key={i} style={{ fontSize: fs * 0.82, fontWeight: 700, color: 'var(--gold)', fontFamily: 'monospace', lineHeight: 1.8, marginBottom: 2, whiteSpace: 'pre-wrap', wordBreak: 'break-all', maxWidth: '100%' }}>
           {transposeChordLine(line, steps)}
         </div>
       );
@@ -361,7 +361,7 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       style={{
-        position: 'fixed', inset: 0, background: '#0d0d1a', zIndex: 9999,
+        position: 'fixed', inset: 0, background: 'var(--bg)', zIndex: 9999,
         display: 'flex', flexDirection: 'column',
         fontFamily: "'Sora', 'Segoe UI', sans-serif",
         overflowX: 'hidden',
@@ -369,12 +369,12 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
     >
       {/* ── BARRA DE PROGRESSO ── */}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'rgba(255,255,255,0.06)', zIndex: 20 }}>
-        <div style={{ height: '100%', width: `${pct}%`, background: '#c9a84c', transition: 'width 0.5s ease', borderRadius: '0 2px 2px 0' }} />
+        <div style={{ height: '100%', width: `${pct}%`, background: 'var(--gold)', transition: 'width 0.5s ease', borderRadius: '0 2px 2px 0' }} />
       </div>
 
       {/* ── HEADER ── */}
       <div style={{
-        background: 'linear-gradient(180deg, #1a1035 0%, #0d0d1a 100%)',
+        background: 'linear-gradient(180deg, #1a1035 0%, var(--bg) 100%)',
         borderBottom: '0.5px solid rgba(255,255,255,0.08)',
         padding: '14px 14px 10px',
         flexShrink: 0,
@@ -410,8 +410,8 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
                   borderRadius: 10, padding: '3px 10px', cursor: 'pointer', minWidth: 44,
                 }}
               >
-                <div style={{ fontSize: 7, color: 'rgba(240,180,41,0.5)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Tom</div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: '#f0b429', lineHeight: 1.1 }}>{tomAtual}</div>
+                <div style={{ fontSize: 7, color: 'var(--gold-glow)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Tom</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--gold)', lineHeight: 1.1 }}>{tomAtual}</div>
               </div>
 
               {showTons && (
@@ -419,7 +419,7 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
                   onClick={e => e.stopPropagation()}
                   style={{
                     position: 'absolute', top: '100%', right: 0, marginTop: 8, zIndex: 100,
-                    background: 'rgba(8,8,14,0.98)', border: '0.5px solid rgba(255,255,255,0.08)',
+                    background: 'var(--bg)', border: '0.5px solid rgba(255,255,255,0.08)',
                     borderRadius: 14, padding: 10,
                     display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 4, minWidth: 200,
                   }}
@@ -436,9 +436,9 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
                           padding: '8px 4px', borderRadius: 9, fontSize: 12,
                           fontWeight: isAt || isOr ? 700 : 400, cursor: 'pointer',
                           fontFamily: 'inherit', textAlign: 'center',
-                          border: isAt ? '1.5px solid #f0b429' : isOr ? '0.5px solid rgba(240,180,41,0.25)' : '0.5px solid rgba(255,255,255,0.06)',
-                          background: isAt ? '#c9a84c' : isOr ? 'rgba(201,168,76,0.08)' : 'rgba(255,255,255,0.03)',
-                          color: isAt ? '#0a0806' : isOr ? '#f0b429' : 'rgba(255,255,255,0.4)',
+                          border: isAt ? '1.5px solid var(--gold)' : isOr ? '0.5px solid var(--gold-glow)' : '0.5px solid rgba(255,255,255,0.06)',
+                          background: isAt ? 'var(--gold)' : isOr ? 'rgba(201,168,76,0.08)' : 'rgba(255,255,255,0.03)',
+                          color: isAt ? '#0a0806' : isOr ? 'var(--gold)' : 'rgba(255,255,255,0.4)',
                         }}
                       >{tom}</button>
                     );
@@ -466,8 +466,8 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
               style={{
                 padding: '6px 14px', borderRadius: 99,
                 border: view === v ? '1px solid rgba(201,168,76,0.5)' : '0.5px solid rgba(255,255,255,0.08)',
-                background: view === v ? 'rgba(201,168,76,0.15)' : 'rgba(255,255,255,0.04)',
-                color: view === v ? '#f0b429' : 'rgba(255,255,255,0.3)',
+                background: view === v ? 'var(--gold-glow)' : 'rgba(255,255,255,0.04)',
+                color: view === v ? 'var(--gold)' : 'rgba(255,255,255,0.3)',
                 fontSize: 12, fontWeight: view === v ? 700 : 400,
                 cursor: 'pointer', fontFamily: 'inherit',
               }}
@@ -545,7 +545,7 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
       >
         {carregando ? (
           <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
-            <div className="spinner" style={{ width: 28, height: 28, borderColor: '#222', borderTopColor: '#c9a84c' }} />
+            <div className="spinner" style={{ width: 28, height: 28, borderColor: '#222', borderTopColor: 'var(--gold)' }} />
           </div>
         ) : view === 'letra' ? (
           <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
@@ -631,7 +631,7 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
                 onClick={() => setIdx(i)}
                 style={{
                   height: 3, borderRadius: 99, cursor: 'pointer',
-                  background: i === idx ? '#f0b429' : i < idx ? 'rgba(240,180,41,0.2)' : 'rgba(255,255,255,0.08)',
+                  background: i === idx ? 'var(--gold)' : i < idx ? 'var(--gold-glow)' : 'rgba(255,255,255,0.08)',
                   width: i === idx ? 24 : 6,
                   transition: 'all 0.3s ease',
                 }}
@@ -648,10 +648,10 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
           onClick={next} disabled={idx === itens.length - 1}
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 5,
-            background: idx === itens.length - 1 ? 'rgba(255,255,255,0.03)' : 'rgba(201,168,76,0.15)',
+            background: idx === itens.length - 1 ? 'rgba(255,255,255,0.03)' : 'var(--gold-glow)',
             border: idx === itens.length - 1 ? '0.5px solid rgba(255,255,255,0.06)' : '1px solid rgba(201,168,76,0.3)',
             borderRadius: 10, padding: '8px 12px',
-            color: idx === itens.length - 1 ? 'rgba(255,255,255,0.15)' : '#f0b429',
+            color: idx === itens.length - 1 ? 'rgba(255,255,255,0.15)' : 'var(--gold)',
             fontSize: 12, cursor: idx === itens.length - 1 ? 'default' : 'pointer', fontFamily: 'inherit',
             minWidth: 80, maxWidth: 130, overflow: 'hidden',
           }}
