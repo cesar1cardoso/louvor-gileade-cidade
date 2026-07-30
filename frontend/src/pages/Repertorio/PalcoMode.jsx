@@ -83,7 +83,7 @@ function renderCifraLinha(line, steps, fs) {
       {pairs.map((p, i) => (
         <span key={i} style={{ display: 'inline-flex', flexDirection: 'column' }}>
           {hasc && (
-            <span style={{ fontSize: fs * 0.7, fontWeight: 800, color: 'var(--gold)', lineHeight: 1.3, fontFamily: 'monospace', minWidth: '0.4ch' }}>
+            <span style={{ fontSize: fs * 0.7, fontWeight: 800, color: 'var(--orange)', lineHeight: 1.3, fontFamily: 'monospace', minWidth: '0.4ch' }}>
               {p.c || '\u00A0'}
             </span>
           )}
@@ -136,7 +136,7 @@ function renderCifraContent(cifraTexto, steps, fs) {
       if (next?.trim() && !isChordOnlyLine(next) && !/^Tom\s*[:\-]?\s*[A-G]/i.test(next)) {
         result.push(
           <div key={i} style={{ marginBottom: 4, maxWidth: '100%', boxSizing: 'border-box' }}>
-            <div style={{ fontSize: fs * 0.82, fontWeight: 700, color: 'var(--gold)', fontFamily: 'monospace', lineHeight: 1.4, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+            <div style={{ fontSize: fs * 0.82, fontWeight: 700, color: 'var(--orange)', fontFamily: 'monospace', lineHeight: 1.4, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
               {transposeChordLine(line, steps)}
             </div>
             <div style={{ fontSize: fs, color: 'rgba(255,255,255,0.85)', fontFamily: "'Crimson Pro', Georgia, serif", lineHeight: 1.9, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
@@ -147,7 +147,7 @@ function renderCifraContent(cifraTexto, steps, fs) {
         i += 2; continue;
       }
       result.push(
-        <div key={i} style={{ fontSize: fs * 0.82, fontWeight: 700, color: 'var(--gold)', fontFamily: 'monospace', lineHeight: 1.8, marginBottom: 2, whiteSpace: 'pre-wrap', wordBreak: 'break-all', maxWidth: '100%' }}>
+        <div key={i} style={{ fontSize: fs * 0.82, fontWeight: 700, color: 'var(--orange)', fontFamily: 'monospace', lineHeight: 1.8, marginBottom: 2, whiteSpace: 'pre-wrap', wordBreak: 'break-all', maxWidth: '100%' }}>
           {transposeChordLine(line, steps)}
         </div>
       );
