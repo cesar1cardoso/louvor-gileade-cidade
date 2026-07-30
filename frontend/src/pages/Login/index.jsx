@@ -35,7 +35,7 @@ export default function Login() {
           <div className={styles.logoIcon}>🎵</div>
           <div className={styles.logoText}>
             <span className={styles.logoLouvor}>Louvor</span>
-            <span className={styles.logoCasaViva}>Casa Viva</span>
+            <span className={styles.logoCasaViva}>Gileade Cidade</span>
           </div>
         </div>
 
