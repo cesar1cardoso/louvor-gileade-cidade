@@ -35,7 +35,7 @@ function Avatar({ nome, size = 36 }) {
 
 export { Avatar };
 
-export default function Layout({ children, theme, toggleTheme }) {
+export default function Layout({ children, theme, setTheme }) {
   const [sidebarAberta, setSidebarAberta] = useState(true);
   const [mobileMenuAberto, setMobileMenuAberto] = useState(false);
   const { usuario, logout, isAdmin } = useAuth();
@@ -67,7 +67,7 @@ export default function Layout({ children, theme, toggleTheme }) {
             {sidebarAberta && (
               <div className={styles.logoText}>
                 <span className={styles.logoLouvor}>Louvor</span>
-                <span className={styles.logoCasaViva}>Gileade Cidade</span>
+                <span className={styles.logoCasaViva}>Casa Viva</span>
               </div>
             )}
           </div>
@@ -120,9 +120,18 @@ export default function Layout({ children, theme, toggleTheme }) {
             </button>
           </div>
           <div className={styles.headerRight}>
-            <button className={styles.themeToggle} onClick={toggleTheme} title="Alternar tema">
-              {theme === 'dark' ? '☀️' : '🌙'}
-            </button>
+            <select
+              className={styles.themeToggle}
+              value={theme}
+              onChange={e => setTheme(e.target.value)}
+              title="Escolher tema"
+              style={{ cursor: 'pointer', fontFamily: 'inherit', border: 'none', background: 'transparent' }}
+            >
+              <option value="dark">🎗️ Dourado</option>
+              <option value="forest">🌲 Floresta</option>
+              <option value="violet">🔮 Violeta</option>
+              <option value="light">☀️ Claro</option>
+            </select>
             {usuario && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Avatar nome={usuario.nome} size={30} />

@@ -47,8 +47,6 @@ function App() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark');
-
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -59,7 +57,7 @@ function App() {
             path="/*"
             element={
               <ProtectedRoute>
-                <Layout theme={theme} toggleTheme={toggleTheme}>
+                <Layout theme={theme} setTheme={setTheme}>
                   <Routes>
                     <Route path="/" element={<Navigate to="/dashboard" replace />} />
                     <Route path="/dashboard" element={<Dashboard />} />
