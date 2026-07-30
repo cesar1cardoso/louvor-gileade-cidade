@@ -1,0 +1,56 @@
+.page { display: flex; flex-direction: column; gap: 32px; }
+.pageHeader { margin-bottom: 4px; }
+.titulo { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+.subtitulo { color: var(--muted); font-size: 14px; margin: 0; }
+
+.alerta {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.secao {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+.secaoTitulo { font-size: 17px; font-weight: 600; margin: 0 0 8px; }
+.secaoDesc { color: var(--muted); font-size: 14px; margin: 0 0 20px; line-height: 1.5; }
+
+.acoes { display: flex; flex-direction: column; gap: 12px; }
+.acaoCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 500px) {
+  .acaoCard button { width: 100%; }
+}
+.acaoIcon { font-size: 28px; flex-shrink: 0; }
+.acaoInfo { flex: 1; }
+.acaoTitulo { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.acaoDesc { font-size: 13px; color: var(--muted); }
+
+.code {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: monospace;
+  font-size: 13px;
+  color: var(--gold);
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0 0 12px;
+}

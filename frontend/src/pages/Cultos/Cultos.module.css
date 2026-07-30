@@ -1,0 +1,376 @@
+.page { display: flex; flex-direction: column; gap: 24px; max-width: 900px; }
+
+.pageHeader { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.titulo { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+.subtitulo { font-size: 14px; color: var(--muted); }
+
+.vazio {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 16px; padding: 60px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; text-align: center; color: var(--muted);
+}
+
+.lista { display: flex; flex-direction: column; gap: 12px; }
+
+/* ── Card ── */
+.cultoCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.cultoCard:hover { border-color: var(--dim); }
+.cultoProximo { border-color: rgba(201,168,76,0.35); }
+.cultoRealizado { opacity: 0.82; }
+
+/* Barra de destaque topo */
+.cultoAccent { height: 3px; background: var(--gold); }
+
+.cultoInner { padding: 16px; }
+
+/* Linha superior: data + divider + body */
+.cultoTop { display: flex; gap: 14px; align-items: flex-start; }
+
+/* Data */
+.cultoDate { display: flex; flex-direction: column; align-items: center; min-width: 46px; flex-shrink: 0; padding-top: 2px; }
+.dataDia { font-size: 28px; font-weight: 700; line-height: 1; }
+.dataMes { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--muted); margin-top: 2px; text-transform: uppercase; }
+.dataMesProximo { color: var(--gold); }
+
+/* Divisor vertical */
+.cultoDivider { width: 1.5px; background: var(--border); flex-shrink: 0; align-self: stretch; min-height: 60px; }
+
+/* Body */
+.cultoBody { flex: 1; min-width: 0; }
+
+.cultoHeaderRow {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 8px;
+  margin-bottom: 7px; flex-wrap: wrap;
+}
+.cultoNome { font-size: 15px; font-weight: 700; line-height: 1.2; }
+
+/* Badge de status */
+.statusBadge { padding: 3px 9px; border-radius: 20px; font-size: 9px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+.badgeProximo  { background: rgba(201,168,76,0.15); color: var(--gold); border: 0.5px solid rgba(201,168,76,0.4); }
+.badgeRealizado { background: rgba(16,185,129,0.12); color: #34d399; border: 0.5px solid rgba(16,185,129,0.3); }
+.badgeAgendado { background: rgba(59,130,246,0.12); color: #60a5fa; border: 0.5px solid rgba(59,130,246,0.3); }
+.badgeCancelado { background: rgba(248,113,113,0.12); color: #f87171; border: 0.5px solid rgba(248,113,113,0.3); }
+
+/* Meta info */
+.cultoMeta { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
+.metaRow { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: 12px; }
+.metaRow i { font-size: 13px; color: var(--dim); flex-shrink: 0; }
+
+.cultoDesc { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+
+.observacoes {
+  display: flex; gap: 6px; align-items: flex-start;
+  background: rgba(244,144,12,0.08); border-radius: 6px;
+  padding: 6px 10px; font-size: 12px; color: var(--orange); margin-bottom: 6px;
+}
+.observacoes i { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+/* Barra de progresso */
+.progressWrap { margin-top: 4px; }
+.progressLabel { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+.progressTxt { font-size: 11px; color: var(--muted); }
+.progressNum { font-size: 11px; font-weight: 600; color: var(--dim); }
+.progressBar { height: 4px; background: var(--surface); border-radius: 2px; overflow: hidden; }
+.progressFill { height: 100%; border-radius: 2px; background: #10b981; transition: width 0.4s ease; }
+
+/* ── Botões de ação coloridos ── */
+.cultoAcoes {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 14px; padding-top: 12px;
+  border-top: 0.5px solid var(--border);
+}
+
+.abt {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 9px;
+  cursor: pointer; border: none; font-family: inherit; flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.abt:hover { opacity: 0.8; }
+.abt i { font-size: 17px; }
+
+.abtEdit { background: rgba(96,165,250,0.12); border: 0.5px solid rgba(96,165,250,0.3) !important; color: #60a5fa; }
+.abtCheck { background: rgba(16,185,129,0.12); border: 0.5px solid rgba(16,185,129,0.3) !important; color: #10b981; }
+.abtLink { background: rgba(167,139,250,0.12); border: 0.5px solid rgba(167,139,250,0.3) !important; color: #a78bfa; }
+.abtCheckCopied { background: rgba(16,185,129,0.12); border: 0.5px solid rgba(16,185,129,0.3) !important; color: #10b981; }
+.abtDel { background: rgba(248,113,113,0.12); border: 0.5px solid rgba(248,113,113,0.3) !important; color: #f87171; }
+
+/* ── Responsividade ── */
+@media (max-width: 600px) {
+  .cultoInner { padding: 13px; }
+  .dataDia { font-size: 24px; }
+  .cultoNome { font-size: 14px; }
+  .metaRow { font-size: 11px; }
+}
+
+
+/* ══════════════════════════════════════════════════════ */
+/* BOTÃO DETALHES — mobile/tablet only                    */
+/* ══════════════════════════════════════════════════════ */
+
+.detalhesFooter {
+  display: none;
+  width: 100%;
+  flex-basis: 100%;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 0.5px solid var(--border);
+}
+
+@media (max-width: 1024px) {
+  .detalhesFooter { display: flex; }
+}
+
+.detalhesBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.detalhesBtn:active { opacity: 0.8; }
+
+/* Próximo culto — dourado com leve brilho */
+.detalhesBtnProximo {
+  background: linear-gradient(135deg, #c9a84c 0%, #e8c96a 50%, #c9a84c 100%);
+  color: #1a1200;
+  box-shadow: 0 2px 12px rgba(201,168,76,0.35);
+}
+
+/* Demais agendados — tom neutro elegante */
+.detalhesBtnAgendado {
+  background: rgba(201,168,76,0.10);
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.30) !important;
+}
+
+.detalhesBtnIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.12);
+  flex-shrink: 0;
+  font-size: 15px;
+}
+
+.detalhesBtnLabel {
+  flex: 1;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════════════════ */
+/* BOTTOM SHEET                                           */
+/* ══════════════════════════════════════════════════════ */
+
+.sheetOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 300;
+  animation: sheetFadeIn 0.2s ease;
+}
+
+.bottomSheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border-radius: 24px 24px 0 0;
+  border-top: 1px solid var(--border);
+  z-index: 301;
+  max-height: 84vh;
+  overflow-y: auto;
+  animation: sheetSlideUp 0.28s cubic-bezier(0.32,0.72,0,1);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+@keyframes sheetFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sheetSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.sheetHandleWrap {
+  display: flex;
+  justify-content: center;
+  padding: 14px 0 6px;
+}
+
+.sheetHandle {
+  width: 44px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.sheetHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sheetHeaderInfo { flex: 1; min-width: 0; }
+
+.sheetTitulo {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.sheetMeta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: capitalize;
+  flex-wrap: wrap;
+}
+
+.sheetClose {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sheetLoading {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}
+
+.sheetContent { padding: 0; }
+
+.sheetSection {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.sheetSection:last-child { border-bottom: none; }
+
+.sheetSectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.sheetVazio { color: var(--muted); font-size: 13px; }
+
+/* Membros */
+.sheetMembro {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+.sheetMembro:last-child { border-bottom: none; }
+
+.membroAvatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.membroInfo { flex: 1; min-width: 0; }
+.membroNome { font-size: 14px; font-weight: 600; }
+.membroRole { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+.confirmaDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 1.5px solid var(--dim);
+  flex-shrink: 0;
+}
+.confirmaDotSim { background: var(--green); border-color: var(--green); }
+
+/* Músicas */
+.sheetMusica {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+.sheetMusica:last-child { border-bottom: none; }
+
+.musicaPos {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.musicaInfo { flex: 1; min-width: 0; }
+.musicaTitulo {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.musicaArtista { font-size: 12px; color: var(--muted); }
+
+.musicaTom {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  flex-shrink: 0;
+}

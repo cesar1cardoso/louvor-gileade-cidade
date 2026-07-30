@@ -1,0 +1,679 @@
+/* ════════════════════════════════════════════════════════════
+   CultoPublico — Mobile-first, dark mode, visitante
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Loading ── */
+.loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: var(--muted);
+  font-size: 16px;
+  background: var(--bg);
+}
+
+.loadingSpinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Erro ── */
+.erro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  padding: 24px 20px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.erroIcon  { font-size: 56px; }
+.erro h2   { font-size: 22px; font-weight: 700; margin: 0; }
+.erro p    { font-size: 16px; color: var(--muted); margin: 0; }
+.erroHint  { font-size: 14px !important; color: var(--dim) !important; }
+
+/* ── Page ── */
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ── Header ── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 16px 12px;
+}
+
+.headerTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.headerInfos { flex: 1; min-width: 0; }
+
+.headerBranding {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+}
+
+.headerTitulo {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.headerMeta {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.headerSep { margin: 0 5px; opacity: 0.4; }
+
+.headerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(201, 168, 76, 0.08);
+  border: 0.5px solid rgba(201, 168, 76, 0.2);
+  border-radius: 20px;
+  color: var(--gold);
+  font-size: 11px;
+}
+
+/* ── Botão Palco (header) ── */
+.btnPalco {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(99, 77, 221, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s;
+}
+
+.btnPalco:active { background: rgba(99, 77, 221, 0.25); }
+
+.btnPalcoIcon  { font-size: 20px; line-height: 1; }
+.btnPalcoTexto { color: #c4b5f7; font-size: 12px; font-weight: 600; }
+.btnPalcoCount { color: rgba(167, 139, 250, 0.5); font-size: 10px; }
+
+/* ── Botão Estudar (header) ── */
+.btnEstudar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s;
+}
+
+.btnEstudar:active { background: rgba(201, 168, 76, 0.22); }
+
+.btnEstudarTexto { color: var(--gold); font-size: 12px; font-weight: 600; }
+
+/* ── Container ── */
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+}
+
+/* ── Section ── */
+.section { margin-bottom: 28px; }
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sectionCount {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--dim);
+  margin-left: auto;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.vazio {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ════════════════════════════════
+   EQUIPE — Grade 2 colunas
+   ════════════════════════════════ */
+.equipeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.membroCard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  background: var(--card);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+}
+
+.membroCardVisitante {
+  border-color: var(--gold);
+  background: rgba(201, 168, 76, 0.06);
+}
+
+.membroAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.membroInfo { flex: 1; min-width: 0; }
+
+.membroNome {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.membroInstrumento {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.badgeVisitante {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--gold);
+  color: #000;
+  border-radius: 8px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* ════════════════════════════════
+   REPERTÓRIO — Músicas
+   ════════════════════════════════ */
+.repertorioList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.musicaCard {
+  background: var(--card);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 14px;
+}
+
+.musicaRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.musicaNum {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: right;
+  margin-top: 2px;
+}
+
+.musicaBody { flex: 1; min-width: 0; }
+
+.musicaTitulo {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.musicaArtista {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.musicaMetaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.musicaTomBadge {
+  background: rgba(99, 77, 221, 0.2);
+  color: #a89ef7;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.musicaVocal {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.musicaBtns {
+  display: flex;
+  gap: 7px;
+  padding-left: 38px;
+}
+
+.btnYoutube {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(204, 0, 0, 0.12);
+  border: 0.5px solid rgba(204, 0, 0, 0.25);
+  border-radius: 8px;
+  padding: 5px 11px;
+  color: #f87171;
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btnYoutube:active { background: rgba(204, 0, 0, 0.22); }
+
+.btnCifra {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(26, 122, 58, 0.12);
+  border: 0.5px solid rgba(26, 122, 58, 0.25);
+  border-radius: 8px;
+  padding: 5px 11px;
+  color: #4ade80;
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btnCifra:active { background: rgba(26, 122, 58, 0.22); }
+
+/* ── Item não musical ── */
+.itemNaoMusical {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+}
+
+.itemNaoMusicalNum {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dim);
+  flex-shrink: 0;
+  width: 22px;
+  text-align: right;
+}
+
+.itemNaoMusicalIcon { font-size: 20px; flex-shrink: 0; }
+.itemNaoMusicalTitulo { font-size: 14px; font-weight: 600; }
+.itemNaoMusicalTipo { font-size: 12px; color: var(--dim); margin-top: 2px; }
+
+/* ── Rodapé ── */
+.rodape {
+  text-align: center;
+  padding: 16px 16px 32px;
+  font-size: 12px;
+  color: var(--dim);
+  border-top: 1px solid var(--border);
+}
+
+/* ════════════════════════════════
+   MODO PALCO VISITANTE
+   ════════════════════════════════ */
+.palcoOverlay {
+  position: fixed;
+  inset: 0;
+  background: #0d0d1a;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Sora', 'Segoe UI', sans-serif;
+}
+
+.palcoBarra {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.06);
+  z-index: 10;
+}
+
+.palcoBarraFill {
+  height: 100%;
+  background: #c9a84c;
+  transition: width 0.5s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+.palcoHeader {
+  background: linear-gradient(180deg, #1a1035 0%, #0d0d1a 100%);
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  padding: 14px 14px 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.palcoHeaderInfo { flex: 1; min-width: 0; }
+
+.palcoContador {
+  font-size: 10px;
+  color: rgba(201,168,76,0.55);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.palcoTitulo {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.palcoMeta {
+  display: flex;
+  gap: 8px;
+  margin-top: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.palcoTomBadge {
+  background: rgba(99,77,221,0.35);
+  color: #c4b5f7;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.palcoVocal {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+}
+
+.palcoAcoes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.palcoFontControls { display: flex; gap: 4px; }
+
+.palcoBtnFont {
+  background: rgba(255,255,255,0.08);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.7);
+  font-size: 11px;
+  font-weight: 700;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.palcoBtnFont:disabled { opacity: 0.3; cursor: default; }
+.palcoBtnFont:active { background: rgba(255,255,255,0.15); }
+
+.palcoBtnFechar {
+  background: rgba(255,255,255,0.08);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.7);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.palcoBtnFechar:active { background: rgba(255,255,255,0.15); }
+
+/* Links YouTube/Cifra no palco */
+.palcoLinks {
+  display: flex;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 0.5px solid rgba(255,255,255,0.05);
+  flex-shrink: 0;
+}
+
+.palcoLinkYoutube {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(204,0,0,0.12);
+  border: 0.5px solid rgba(204,0,0,0.25);
+  border-radius: 8px;
+  padding: 5px 12px;
+  color: #f87171;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.palcoLinkCifra {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(26,122,58,0.12);
+  border: 0.5px solid rgba(26,122,58,0.25);
+  border-radius: 8px;
+  padding: 5px 12px;
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* Corpo da letra */
+.palcoBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 20px 20px;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.palcoSemLetra {
+  color: rgba(255,255,255,0.25);
+  font-size: 15px;
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* Navegação */
+.palcoNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 14px;
+  background: rgba(255,255,255,0.03);
+  border-top: 0.5px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.palcoBtnNav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 7px 10px;
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 80px;
+  max-width: 120px;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.palcoBtnNavDir { justify-content: flex-end; }
+.palcoBtnNavDisabled { opacity: 0.2; cursor: default; pointer-events: none; }
+.palcoBtnNav:active { background: rgba(255,255,255,0.12); }
+
+.palcoSeta { font-size: 16px; flex-shrink: 0; }
+
+.palcoNavNome {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 10px;
+}
+
+.palcoDots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 1;
+}
+
+.palcoDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s, transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.palcoDotAtivo {
+  background: #c9a84c;
+  transform: scale(1.4);
+}
+
+/* ── Rodapé ── */
+.rodape {
+  text-align: center;
+  padding: 16px 16px 32px;
+  font-size: 12px;
+  color: var(--dim);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Tablet ── */
+@media (min-width: 640px) {
+  .headerTitulo { font-size: 22px; }
+  .equipeGrid { grid-template-columns: repeat(3, 1fr); }
+  .musicaBtns { flex-direction: row; }
+  .palcoBody { padding: 28px 40px 20px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .loadingSpinner {
+    border-color: rgba(255,255,255,0.15);
+    border-top-color: #c9a84c;
+  }
+}

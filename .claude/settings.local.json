@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(printf '\\\\x89PNG\\\\r\\\\n\\\\x1a\\\\n\\\\x00\\\\x00\\\\x00\\\\rIHDR\\\\x00\\\\x00\\\\x00 \\\\x00\\\\x00\\\\x00 \\\\x08\\\\x02\\\\x00\\\\x00\\\\x00\\\\xfc\\\\x18\\\\xed\\\\xa3\\\\x00\\\\x00\\\\x00\\\\x1dIDATx\\\\x9cc\\\\xfc\\\\xff\\\\xff?\\\\x03\\\\x10\\\\x00\\\\x00\\\\xff\\\\xff\\\\x03\\\\x00\\\\x18\\\\x00\\\\x01\\\\x00\\\\x00\\\\x00\\\\x00\\\\x00IEND\\\\xaeB`\\\\x82')",
+      "Bash(docker compose:*)",
+      "Bash(docker volume:*)",
+      "Bash(xargs -r docker volume rm)",
+      "Bash(ls C:/louvor-casa-viva/frontend/.env*)",
+      "Bash(node:*)"
+    ]
+  }
+}

@@ -1,0 +1,207 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 1000px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+}
+
+.saudacao h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.subSaudacao {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.statCard {
+  background: var(--card);
+  border: 1px solid;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statIcon { font-size: 24px; }
+
+.statValor {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.proximoCulto {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.proximoHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.proximoNome {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 8px 0 4px;
+}
+
+.proximoData {
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.progressBar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.progressText {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: -8px;
+}
+
+.alerta {
+  background: rgba(244,144,12,0.1);
+  border: 1px solid rgba(244,144,12,0.25);
+  border-radius: 8px;
+  color: var(--orange);
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.semCulto {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.semCultoIcon { font-size: 40px; margin-bottom: 12px; }
+
+.linkBtn {
+  background: none;
+  border: none;
+  color: var(--gold);
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  text-decoration: underline;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.acessoRapido {}
+
+.acessoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.acessoBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.acessoBtn:hover {
+  background: var(--surface);
+  border-color: var(--gold);
+}
+
+.acessoIcon { font-size: 26px; }
+
+.proximosCultos {}
+
+.cultosList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cultoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cultoItem:hover { background: var(--surface); }
+
+.cultoItemNome { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.cultoItemData { font-size: 12px; color: var(--muted); text-transform: capitalize; }
+
+@media (max-width: 768px) {
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .acessoGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 400px) {
+  .statsGrid  { grid-template-columns: 1fr; }
+  .acessoGrid { grid-template-columns: 1fr; }
+  .statValor  { font-size: 24px; }
+  .saudacao h1 { font-size: 22px; }
+}

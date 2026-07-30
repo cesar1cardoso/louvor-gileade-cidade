@@ -1,0 +1,63 @@
+version: "3.9"
+services:
+  louvor_postgres:
+    image: postgres:16-alpine
+    container_name: louvor_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    volumes:
+      - louvor_pgdata:/var/lib/postgresql/data
+      - ./backend/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5433:5432"
+
+  louvor_api:
+    build: ./backend
+    container_name: louvor_api
+    restart: unless-stopped
+    environment:
+      PORT: ${PORT}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      BASE_URL: ${BASE_URL}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+    ports:
+      - "3001:3001"
+    depends_on:
+      louvor_postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  louvor_app:
+    build: ./frontend
+    container_name: louvor_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - louvor_api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    # VITE_API_URL não é definido aqui intencionalmente.
+    # Com valor vazio, o frontend usa URLs relativas (/api/...) que são
+    # roteadas pelo proxy do Vite — funciona para qualquer cliente na rede.
+
+volumes:
+  louvor_pgdata:

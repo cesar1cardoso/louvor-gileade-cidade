@@ -1,0 +1,45 @@
+.page { display: flex; flex-direction: column; gap: 24px; }
+.pageHeader { display: flex; justify-content: space-between; align-items: flex-start; }
+.titulo { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+.subtitulo { color: var(--muted); font-size: 14px; margin: 0; }
+
+.tabela {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.tabelaHeader {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+  padding: 12px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.tabelaRow {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+  padding: 14px 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.tabelaRow:last-child { border-bottom: none; }
+.tabelaRow:hover { background: var(--bg); }
+.nome { font-weight: 500; font-size: 14px; }
+.email { font-size: 13px; color: var(--muted); }
+.acoes { display: flex; gap: 4px; }
+
+@media (max-width: 700px) {
+  .tabelaHeader { display: none; }
+  .tabelaRow {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 14px 16px;
+  }
+}

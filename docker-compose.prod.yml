@@ -1,0 +1,50 @@
+services:
+  louvor_postgres:
+    image: postgres:16-alpine
+    container_name: louvor_postgres_prod
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - louvor_pgdata_prod:/var/lib/postgresql/data
+      - ./backend/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    # Banco não exposto ao host em produção
+
+  louvor_api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: louvor_api_prod
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DB_HOST: louvor_postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+    ports:
+      - "3001:3001"
+    depends_on:
+      - louvor_postgres
+    restart: unless-stopped
+
+  louvor_app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: louvor_app_prod
+    ports:
+      - "80:80"
+    depends_on:
+      - louvor_api
+    restart: unless-stopped
+
+volumes:
+  louvor_pgdata_prod:
