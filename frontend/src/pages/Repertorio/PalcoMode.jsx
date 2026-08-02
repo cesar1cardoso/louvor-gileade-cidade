@@ -191,6 +191,7 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
   const scrollIntervalRef = useRef(null);
   const touchY = useRef(null);
   const scrollStartTop = useRef(0);
+  const focusCaptureRef = useRef(null);
 
   const item     = itens[idx];
   const louvorId = item?.louvor_id;
@@ -221,6 +222,28 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  // Mantém um campo invisível sempre em foco. No Safari/iOS, eventos de
+  // teclado de um pedal Bluetooth só chegam ao JavaScript quando algum
+  // elemento focável está com foco na página.
+  useEffect(() => {
+    const el = focusCaptureRef.current;
+    if (!el) return;
+    el.focus({ preventScroll: true });
+    const refocar = () => {
+      if (document.activeElement === document.body || document.activeElement === el) {
+        el.focus({ preventScroll: true });
+      }
+    };
+    window.addEventListener('focus', refocar);
+    document.addEventListener('visibilitychange', refocar);
+    const intervalo = setInterval(refocar, 1000);
+    return () => {
+      window.removeEventListener('focus', refocar);
+      document.removeEventListener('visibilitychange', refocar);
+      clearInterval(intervalo);
+    };
   }, []);
 
   // Ao trocar de música: parar auto-scroll e voltar pro topo
@@ -367,6 +390,19 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
         overflowX: 'hidden',
       }}
     >
+      {/* Campo invisível — mantém o foco para o Safari/iOS entregar
+          eventos de teclado do pedal Bluetooth ao JavaScript */}
+      <input
+        ref={focusCaptureRef}
+        readOnly
+        aria-hidden="true"
+        tabIndex={-1}
+        style={{
+          position: 'absolute', opacity: 0, width: 1, height: 1,
+          border: 'none', outline: 'none', pointerEvents: 'none',
+        }}
+      />
+
       {/* ── BARRA DE PROGRESSO ── */}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'rgba(255,255,255,0.06)', zIndex: 20 }}>
         <div style={{ height: '100%', width: `${pct}%`, background: 'var(--gold)', transition: 'width 0.5s ease', borderRadius: '0 2px 2px 0' }} />
