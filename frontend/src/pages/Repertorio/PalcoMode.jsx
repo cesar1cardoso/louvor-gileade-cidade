@@ -282,25 +282,82 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
     }
   }, [louvorId, tomBase, tomSugeridoAtual]);
 
-  // Rola a letra/cifra como se fosse "virar a página" (usado pelo Page Up/Page Down do pedal)
-  function scrollPagina(direcao) {
+  // Combina dois comportamentos no Page Up/Down (Modo 3 do pedal):
+  // - Toque rápido (menos de 250ms): pula 95% da tela, como "virar a página"
+  // - Segurar mais que isso: rola continuamente até soltar
+  const holdScrollInterval = useRef(null);
+  const holdScrollDirecao = useRef(null);
+  const holdTimer = useRef(null);
+  const LIMIAR_SEGURAR_MS = 250;
+
+  function scrollPaginaFixo(direcao) {
     const el = contentRef.current;
     if (!el) return;
-    if (scrollAtivo) setScrollAtivo(false); // pedal assume o controle manual
-    el.scrollBy({ top: direcao * el.clientHeight * 0.85, behavior: 'smooth' });
+    if (scrollAtivo) setScrollAtivo(false);
+    el.scrollBy({ top: direcao * el.clientHeight * 0.95, behavior: 'smooth' });
   }
+
+  function iniciarRolagemContínua(direcao) {
+    if (holdScrollDirecao.current === direcao) return; // já rolando nessa direção
+    pararRolagemContínua();
+    if (scrollAtivo) setScrollAtivo(false); // pedal assume o controle manual
+    holdScrollDirecao.current = direcao;
+    holdScrollInterval.current = setInterval(() => {
+      const el = contentRef.current;
+      if (el) el.scrollTop += direcao * 4;
+    }, 16);
+  }
+
+  function pararRolagemContínua() {
+    if (holdScrollInterval.current) clearInterval(holdScrollInterval.current);
+    holdScrollInterval.current = null;
+    holdScrollDirecao.current = null;
+  }
+
+  function onPedalPageDown(direcao) {
+    if (holdTimer.current) return; // tecla já sendo processada (evita repeat do SO)
+    holdTimer.current = setTimeout(() => {
+      holdTimer.current = null;
+      iniciarRolagemContínua(direcao);
+    }, LIMIAR_SEGURAR_MS);
+  }
+
+  function onPedalPageUp() {
+    if (holdTimer.current) {
+      // Soltou antes do limiar: foi um toque rápido — pulo fixo de 95%
+      clearTimeout(holdTimer.current);
+      holdTimer.current = null;
+      scrollPaginaFixo(holdScrollDirecaoPendente.current);
+    } else {
+      // Estava em rolagem contínua: para
+      pararRolagemContínua();
+    }
+  }
+  const holdScrollDirecaoPendente = useRef(null);
+
+  useEffect(() => () => { pararRolagemContínua(); clearTimeout(holdTimer.current); }, []);
 
   // Teclado — inclui suporte a pedais de passar página Bluetooth (ex: Cube Turner),
   // que emulam teclas de teclado dependendo do modo configurado no pedal.
   useEffect(() => {
-    const h = (e) => {
+    const handleKeyDown = (e) => {
       // Setas e teclas de mídia: trocam de música (Modo 2 / Modo 5 do pedal)
       if (['ArrowRight', 'MediaTrackNext'].includes(e.key)) { next(); return; }
       if (['ArrowLeft', 'MediaTrackPrevious'].includes(e.key)) { prev(); return; }
 
-      // Page Up / Page Down: rolam a letra/cifra na tela (Modo 3 do pedal — "virar página")
-      if (e.key === 'PageDown' || e.key === 'ArrowDown') { e.preventDefault(); scrollPagina(1); return; }
-      if (e.key === 'PageUp'   || e.key === 'ArrowUp')   { e.preventDefault(); scrollPagina(-1); return; }
+      // Page Up / Page Down: toque rápido pula 95%, segurar rola continuamente
+      if (e.key === 'PageDown' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        holdScrollDirecaoPendente.current = 1;
+        onPedalPageDown(1);
+        return;
+      }
+      if (e.key === 'PageUp' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        holdScrollDirecaoPendente.current = -1;
+        onPedalPageDown(-1);
+        return;
+      }
 
       // Espaço ou Enter: liga/pausa o auto-scroll (Modo 4 do pedal)
       if (e.key === ' ' || e.code === 'Space' || e.key === 'Enter') {
@@ -310,9 +367,24 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
       }
       if (e.key === 'Escape') onFechar();
     };
-    window.addEventListener('keydown', h);
-    return () => window.removeEventListener('keydown', h);
+
+    const handleKeyUp = (e) => {
+      if (['PageDown', 'ArrowDown', 'PageUp', 'ArrowUp'].includes(e.key)) {
+        onPedalPageUp();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+      pararRolagemContínua();
+      clearTimeout(holdTimer.current);
+    };
   }, [idx, scrollAtivo]);
+
+
 
   // Fecha seletor ao clicar fora
   useEffect(() => {
