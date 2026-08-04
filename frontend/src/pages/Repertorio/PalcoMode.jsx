@@ -414,10 +414,18 @@ export default function PalcoMode({ itens, nomeCulto, onFechar, tonsPorItem, ton
       if (scrollAtivo) setScrollAtivo(false);
     }
   }
+  // Considera "celular" telas estreitas (≤768px) — em tablet/desktop o arrasto continua ativo
+  function ehTelaCelular() {
+    return window.innerWidth <= 768;
+  }
+
   function onTouchEnd(e) {
     if (touchX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchX.current;
-    if (dx < -60) next(); else if (dx > 60) prev();
+    // No celular, a troca de música só acontece pelos botões ‹ › — não pelo arrasto
+    if (!ehTelaCelular()) {
+      if (dx < -60) next(); else if (dx > 60) prev();
+    }
     touchX.current = null;
     touchY.current = null;
   }
