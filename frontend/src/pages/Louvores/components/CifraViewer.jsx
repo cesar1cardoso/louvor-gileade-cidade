@@ -7,7 +7,6 @@ import {
 export default function CifraViewer({ cifraTexto, tomOriginal, titulo, artista }) {
   const [steps, setSteps]           = useState(0);
   const [fontSize, setFontSize]     = useState(15);
-  const [apresentacao, setApres]    = useState(false);
   const [showSelector, setSelector] = useState(false);
   const selectorRef                 = useRef(null);
 
@@ -148,87 +147,6 @@ export default function CifraViewer({ cifraTexto, tomOriginal, titulo, artista }
 
       return null;
     });
-  }
-
-  // ── MODO APRESENTAÇÃO ──────────────────────────────────────────
-  if (apresentacao) {
-    return (
-      <div style={{
-        position: 'fixed', inset: 0,
-        background: '#000', zIndex: 9999,
-        overflowY: 'auto',
-        fontFamily: "'Sora', 'Segoe UI', sans-serif",
-      }}>
-        {/* Header do modo apresentação */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '16px 20px',
-          borderBottom: '0.5px solid #222',
-          flexWrap: 'wrap',
-          gap: 10,
-          position: 'sticky',
-          top: 0,
-          background: '#000',
-          zIndex: 2,
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>
-                {titulo}
-              </div>
-              {artista && (
-                <div style={{ fontSize: 11, color: '#555', marginTop: 2 }}>{artista}</div>
-              )}
-            </div>
-            {/* Tom no modo apresentação */}
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              background: 'rgba(201,168,76,0.1)',
-              border: '0.5px solid rgba(201,168,76,0.3)',
-              borderRadius: 10, padding: '4px 10px',
-            }}>
-              <button
-                onClick={() => setSteps(s => ((s - 1 + 12) % 12))}
-                style={{ ...btnApresStyle, fontSize: 18, padding: '0 4px' }}
-              >−</button>
-              <span style={{
-                color: '#c9a84c', fontWeight: 700, fontSize: 18,
-                minWidth: 32, textAlign: 'center',
-              }}>
-                {tomAtual}
-              </span>
-              <button
-                onClick={() => setSteps(s => (s + 1) % 12)}
-                style={{ ...btnApresStyle, fontSize: 18, padding: '0 4px' }}
-              >+</button>
-            </div>
-          </div>
-          <button
-            onClick={() => setApres(false)}
-            style={{
-              padding: '7px 14px', borderRadius: 8,
-              border: '0.5px solid #333',
-              background: 'transparent', color: '#666',
-              cursor: 'pointer', fontFamily: 'inherit',
-              fontSize: 12, fontWeight: 600,
-            }}
-          >
-            ✕ Sair
-          </button>
-        </div>
-
-        {/* Corpo da apresentação */}
-        <div style={{
-          padding: '20px 24px 60px',
-          columnWidth: 380,
-          columnGap: 48,
-        }}>
-          {renderCifra(true)}
-        </div>
-      </div>
-    );
   }
 
   // ── VISUALIZAÇÃO NORMAL ────────────────────────────────────────
@@ -445,24 +363,6 @@ export default function CifraViewer({ cifraTexto, tomOriginal, titulo, artista }
           >A+</button>
         </div>
 
-        {/* Botão Apresentar */}
-        <button
-          onClick={() => setApres(true)}
-          style={{
-            marginLeft: 'auto',
-            display: 'flex', alignItems: 'center', gap: 5,
-            padding: '7px 14px',
-            background: 'rgba(201,168,76,0.1)',
-            border: '0.5px solid rgba(201,168,76,0.35)',
-            borderRadius: 10,
-            color: '#c9a84c',
-            fontSize: 12, fontWeight: 700,
-            cursor: 'pointer', fontFamily: 'inherit',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          ⛶ Apresentar
-        </button>
       </div>
 
       {/* ── CORPO DA CIFRA ── */}
@@ -520,15 +420,4 @@ const btnFontStyle = {
   cursor: 'pointer',
   fontFamily: 'inherit',
   fontSize: 10, fontWeight: 700,
-};
-
-const btnApresStyle = {
-  padding: '4px 8px',
-  borderRadius: 6,
-  border: 'none',
-  background: 'transparent',
-  color: '#c9a84c',
-  cursor: 'pointer',
-  fontFamily: 'inherit',
-  fontSize: 20, fontWeight: 700,
 };
